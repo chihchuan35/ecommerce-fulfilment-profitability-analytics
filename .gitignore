@@ -1,0 +1,52 @@
+```gitignore
+# Environment variables and credentials
+.env
+*.env
+kaggle.json
+.kaggle/
+credentials/
+secrets/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Virtual environments
+venv/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+logs/
+*.log
+
+# Raw and processed data
+data/raw/
+data/interim/
+data/processed/
+*.csv
+*.xlsx
+*.parquet
+
+# Allow sample metadata files later if needed
+!data/metadata/
+!data/metadata/.gitkeep
+!data/metadata/schema_snapshots/
+!data/metadata/schema_snapshots/.gitkeep
+!data/samples/
+!data/samples/.gitkeep
+
+# Power BI local files
+*.pbix
+*.pbit
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
