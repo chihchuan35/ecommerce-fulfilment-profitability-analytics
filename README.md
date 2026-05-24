@@ -5,8 +5,17 @@
 In progress.
 
 Current stage:
-- Repository structure created
-- Extract layer design in progress
+
+- Repository structure completed
+- Extract configuration completed
+- KaggleHub dataset download script completed
+- Raw source file validation completed
+- Versioned raw landing workflow completed
+- Ingestion metadata logging completed
+
+Next stage:
+
+- SQL-based raw-to-silver transformation design
 
 ## Project Overview
 
@@ -33,6 +42,44 @@ The business needs to identify which product categories, sellers, regions, and f
 7. Analyse fulfilment, customer satisfaction, and freight pressure
 8. Present insights and management recommendations
 
+## Extract Layer
+
+The extract layer is designed to provide a repeatable and traceable raw data ingestion process.
+
+It currently performs the following steps:
+
+1. Downloads the Olist dataset using KaggleHub
+2. Copies source CSV files into a local source download folder
+3. Validates expected raw files
+4. Creates a versioned raw landing folder using extract date and batch ID
+5. Copies validated source files into the raw landing zone
+6. Writes a file-level ingestion metadata log
+
+The extract stage does not clean, join, transform, or model the data. Its purpose is to preserve the raw source files, validate that the required files and columns are available, and record metadata for traceability.
+
+Key extract outputs:
+
+- Versioned raw landing files
+- File existence validation
+- Empty file validation
+- Required column validation
+- File size
+- Row count
+- Column count
+- SHA256 file hash
+- Ingestion metadata log
+
+Detailed design documentation is available in:
+
+`docs/extract_design.md`
+
+## How to Run the Extract Workflow
+
+Install dependencies:
+
+````powershell
+pip install -r requirements.txt
+
 ## Tech Stack
 
 - Python
@@ -52,3 +99,4 @@ sql/         Raw, silver, data quality, and gold SQL scripts
 docs/        Business and technical documentation
 diagrams/    Architecture, lineage, and dimensional model diagrams
 powerbi/     Power BI screenshots and report documentation
+````
