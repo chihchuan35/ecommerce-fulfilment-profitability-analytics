@@ -39,3 +39,16 @@ def create_directory(path: str | Path) -> Path:
     directory = Path(path)
     directory.mkdir(parents=True, exist_ok=True)
     return directory
+
+
+def build_metadata_batch_path(
+    metadata_dir: str | Path,
+    batch_id: str,
+) -> Path:
+    """
+    Build the metadata batch path.
+
+    Example:
+    data/metadata/olist_brazilian_ecommerce/batch_id=20260524_143000
+    """
+    return Path(metadata_dir) / f"batch_id={batch_id}"
