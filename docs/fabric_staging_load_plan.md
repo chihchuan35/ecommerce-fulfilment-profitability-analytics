@@ -38,3 +38,14 @@ Business rules are not applied in staging. They are handled in the Silver and Go
 ```text
 Raw files → Staging tables → Silver tables → Gold models → Power BI
 ```
+
+## Current Manual Upload Step
+
+For the first version, raw CSV files are manually uploaded to the Lakehouse `Files` area before being loaded into Fabric Warehouse staging tables.
+
+Current manual upload target:
+
+```text
+Lakehouse: lh_olist_raw
+Folder: Files/olist_raw/
+```
