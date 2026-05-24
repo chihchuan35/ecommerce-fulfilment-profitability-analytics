@@ -1,0 +1,10 @@
+local:
+  source_download_dir: data/raw/source_download
+  raw_landing_dir: data/raw/olist_brazilian_ecommerce
+  metadata_dir: data/metadata/olist_brazilian_ecommerce
+  log_dir: logs
+
+extract:
+  batch_id_format: "%Y%m%d_%H%M%S"
+  overwrite_existing_raw_files: false
+  default_encoding: utf-8
