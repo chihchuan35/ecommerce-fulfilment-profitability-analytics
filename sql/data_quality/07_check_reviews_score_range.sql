@@ -1,5 +1,6 @@
--- Check review score quality in the raw order reviews table.
--- This validates whether review scores are within the expected 1 to 5 range.
+-- Check review score quality using the Fabric-safe review metadata table.
+-- The original review CSV contains free-text comment fields that caused parsing issues during UI-based table loading.
+-- This metadata table keeps only the fields required for customer satisfaction analysis.
 
 WITH
     reviews
@@ -11,7 +12,7 @@ WITH
             TRY_CAST(review_score AS INT) AS review_score,
             review_creation_date,
             review_answer_timestamp
-        FROM dbo.olist_order_reviews_dataset
+        FROM dbo.olist_order_reviews_metadata
     )
 
 SELECT
