@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This portfolio project analyses e-commerce fulfilment reliability, customer satisfaction, seller performance, regional delivery issues, and freight-related profitability pressure.
+This portfolio project analyses e-commerce fulfilment reliability, customer satisfaction, seller performance, regional delivery issues, product category risk, and freight-related profitability pressure.
 
 The project uses the Olist Brazilian E-Commerce Public Dataset and follows a lightweight ELT-oriented analytics workflow.
 
@@ -10,10 +10,11 @@ The project uses the Olist Brazilian E-Commerce Public Dataset and follows a lig
 Business Problem
 → Extract
 → Raw Validation
-→ Fabric Staging
+→ Fabric Lakehouse Raw Area
+→ Fabric Warehouse Staging
 → Silver Transformation
-→ Gold Model
-→ Power BI
+→ Gold Reporting Models
+→ Power BI Semantic Model
 → Insights and Recommendations
 ```
 
@@ -30,139 +31,156 @@ In progress.
 Completed:
 
 - Repository structure
-- Extract configuration
-- KaggleHub dataset download
-- Raw source file validation
+- Local extract workflow
+- Raw source validation
 - Versioned raw landing workflow
 - Ingestion metadata logging
-- Initial transform and Silver layer planning
+- Fabric Lakehouse raw upload
+- Fabric Warehouse staging tables
+- Raw data quality checks
+- Silver transformation layer
+- Gold reporting tables and views
+- Fabric semantic model
+- Core Power BI measures
 
 Current stage:
 
-- Preparing Fabric-based raw-to-Silver transformation using Lakehouse tables, SQL analytics endpoint checks, and notebook-based table preparation
+- Building Power BI report pages and documenting business insights
 
 ## Data Source
 
 - Dataset: Olist Brazilian E-Commerce Public Dataset
 - Dataset handle: `olistbr/brazilian-ecommerce`
 
-Raw data files are excluded from GitHub.
+Raw CSV files are excluded from GitHub.
 
-## Extract Layer
+## Architecture
 
-The extract layer downloads, validates, versions, and logs raw CSV files.
+| Layer       | Tool                             | Purpose                                                          |
+| ----------- | -------------------------------- | ---------------------------------------------------------------- |
+| Extract     | Python + KaggleHub               | Download, validate, version, and log raw CSV files               |
+| Raw storage | Fabric Lakehouse                 | Store uploaded raw files and raw loaded tables                   |
+| Staging     | Fabric Warehouse SQL             | Create source-aligned Warehouse staging tables                   |
+| Silver      | Fabric Warehouse SQL             | Clean, standardise, type-cast, and add row-level exception flags |
+| Gold        | Fabric Warehouse SQL             | Build reporting-ready business models and analytical views       |
+| Reporting   | Fabric Semantic Model + Power BI | Create measures, report pages, insights, and recommendations     |
 
-Run the extract workflow:
+## Key Outputs
 
-```powershell
-pip install -r requirements.txt
-python -m src.extract.download_kaggle_dataset
-python -m src.extract.validate_raw_files
-python -m src.extract.run_extract
+### Silver Layer
+
+Silver tables standardise data types, clean key fields, and add row-level analytical flags.
+
+Examples:
+
+- `silver_orders`
+- `silver_order_items`
+- `silver_products`
+- `silver_customers`
+- `silver_sellers`
+- `silver_order_payments`
+- `silver_order_reviews`
+
+### Gold Layer
+
+The Gold layer includes two physical reporting tables and several analytical views.
+
+| Object                             | Type  | Purpose                                                                       |
+| ---------------------------------- | ----- | ----------------------------------------------------------------------------- |
+| `gold_order_fulfilment`            | Table | Order-level fulfilment, review, payment, revenue, and freight analysis        |
+| `gold_order_item_profitability`    | Table | Item-level freight pressure, product, seller, category, and delivery analysis |
+| `vw_seller_performance`            | View  | Seller-level performance summary                                              |
+| `vw_category_performance`          | View  | Product category performance summary                                          |
+| `vw_regional_fulfilment`           | View  | Regional fulfilment summary                                                   |
+| `vw_customer_satisfaction_summary` | View  | Satisfaction comparison by delivery outcome                                   |
+| `vw_monthly_fulfilment_trend`      | View  | Monthly order and late delivery trend                                         |
+| `vw_state_fulfilment`              | View  | State-level fulfilment performance                                            |
+
+## Power BI Reporting
+
+A Fabric semantic model has been created from the Warehouse Gold layer.
+
+Semantic model:
+
+```text
+sm_ecommerce_fulfilment_profitability
 ```
-
-More details:
-
-- `docs/extract_design.md`
-
-## Transform Plan
-
-The transformation layer uses Fabric Lakehouse as the raw landing area and Fabric Warehouse as the SQL transformation layer.
-
-| Layer             | Purpose                                                      |
-| ----------------- | ------------------------------------------------------------ |
-| Lakehouse raw     | Stores uploaded raw CSV files and raw loaded tables          |
-| Warehouse staging | Source-aligned tables materialised from Lakehouse raw tables |
-| Silver            | Cleaned and standardised analytical tables                   |
-| Gold              | Business-ready reporting models and KPIs                     |
-
-More details:
-
-- `docs/transform_design.md`
-- `docs/fabric_staging_load_plan.md`
-- `docs/silver_table_design.md`
-- `docs/silver_business_rule_mapping.md`
-- `sql/README.md`
-
-## Data Quality Checks
-
-Raw data quality checks are stored in:
-
-## Silver Layer
-
-The first version of the Silver layer has been completed in Fabric Warehouse SQL.
-
-Silver tables standardise data types, clean key fields, add row-level exception flags, and prepare the dataset for Gold modelling and Power BI reporting.
-
-More details:
-
-- `docs/silver_layer_summary.md`
-
-- `sql/data_quality/`
-
-Summary:
-
-- `docs/data_quality_summary.md`
-
-## Gold Layer
-
-The first version of the Gold layer has been completed.
-
-It includes two physical reporting tables and several analytical views for Power BI:
-
-- `gold_order_fulfilment`
-- `gold_order_item_profitability`
-- `vw_seller_performance`
-- `vw_category_performance`
-- `vw_regional_fulfilment`
-- `vw_customer_satisfaction_summary`
-
-More details:
-
-- `docs/gold_layer_summary.md`
-
-## Power BI Report Plan
-
-The Power BI report will use Fabric Warehouse Gold tables and views to analyse fulfilment reliability, freight pressure, seller performance, regional bottlenecks, customer satisfaction, and product category risks.
-
-More details:
-
-- `docs/powerbi_report_design.md`
-
-## Power BI Semantic Model
-
-The Power BI report will use Fabric Warehouse Gold tables and views as the reporting layer.
 
 Core DAX measures are stored in:
 
-- `powerbi/core_measures.dax`
+```text
+powerbi/core_measures.dax
+```
 
-More details:
+The Power BI report focuses on:
 
-- `docs/powerbi_semantic_model.md`
+- Executive summary
+- Fulfilment performance
+- Freight pressure
+- Seller performance
+- Product category analysis
+- Regional fulfilment
+- Customer satisfaction
+- Business recommendations
 
-Report page design:
+## Documentation
 
-- `docs/powerbi_report_pages.md`
+Project documentation is consolidated into core files:
+
+- `docs/01_project_overview.md`
+- `docs/02_extract_and_fabric_architecture.md`
+- `docs/03_data_quality_summary.md`
+- `docs/04_transformation_layers.md`
+- `docs/05_powerbi_reporting_plan.md`
+- `docs/06_report_insights.md`
+
+## How to Run the Extract Workflow
+
+Install dependencies:
+
+```powershell
+pip install -r requirements.txt
+```
+
+Download the dataset:
+
+```powershell
+python -m src.extract.download_kaggle_dataset
+```
+
+Validate raw source files:
+
+```powershell
+python -m src.extract.validate_raw_files
+```
+
+Run the full extract workflow:
+
+```powershell
+python -m src.extract.run_extract
+```
+
+## Repository Structure
+
+```text
+config/      Dataset, required column, and path configuration
+data/        Local raw data and metadata outputs, excluded from GitHub
+src/         Python extract and utility scripts
+sql/         Staging, data quality, Silver, and Gold SQL scripts
+docs/        Project documentation
+notebooks/   Fabric notebook logic used for review metadata preparation
+powerbi/     Power BI measures, screenshots, and report documentation
+```
 
 ## Tech Stack
 
 - Python
 - SQL
+- Microsoft Fabric Lakehouse
 - Microsoft Fabric Warehouse
+- Fabric Semantic Model
 - Power BI
 - GitHub
-
-## Repository Structure
-
-```text
-config/      Configuration files
-data/        Local raw data and metadata, excluded from GitHub
-src/         Python extract and utility scripts
-sql/         Data quality, Silver, and Gold SQL scripts
-docs/        Project documentation
-powerbi/     Power BI screenshots and report documentation
-```
 
 ## Data and Credential Handling
 
@@ -173,3 +191,5 @@ The following are excluded from GitHub:
 - `.env`
 - `kaggle.json`
 - Credentials and secrets
+
+The repository stores code, SQL scripts, documentation, and reporting assets only.
