@@ -49,3 +49,27 @@ Current manual upload target:
 Lakehouse: lh_olist_raw
 Folder: Files/olist_raw/
 ```
+
+## Current Fabric Raw File Upload
+
+For the first version, the selected raw CSV files have been manually uploaded to the Fabric Lakehouse Files area.
+
+```text
+Lakehouse: lh_olist_raw
+Folder: Files/olist_raw/
+```
+
+Uploaded files:
+
+- `olist_orders_dataset.csv`
+- `olist_order_items_dataset.csv`
+- `olist_customers_dataset.csv`
+- `olist_sellers_dataset.csv`
+- `olist_products_dataset.csv`
+- `olist_order_payments_dataset.csv`
+- `olist_order_reviews_dataset.csv`
+- `product_category_name_translation.csv`
+
+The geolocation file is excluded from the first version because city and state fields are sufficient for the initial regional fulfilment analysis.
+
+At this stage, the files are uploaded only. They have not yet been loaded into tables.
