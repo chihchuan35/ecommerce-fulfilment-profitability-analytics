@@ -67,13 +67,14 @@ More details:
 
 ## Transform Plan
 
-The transformation layer uses Microsoft Fabric Lakehouse tables as the raw starting point. SQL analytics endpoint queries are used for validation and inspection, while materialised Silver tables will be created through Fabric Notebook logic where table writes are required.
+The transformation layer uses Fabric Lakehouse as the raw landing area and Fabric Warehouse as the SQL transformation layer.
 
-| Layer   | Purpose                                         |
-| ------- | ----------------------------------------------- |
-| Staging | Source-aligned tables loaded from raw CSV files |
-| Silver  | Cleaned and standardised analytical tables      |
-| Gold    | Business-ready reporting models and KPIs        |
+| Layer             | Purpose                                                      |
+| ----------------- | ------------------------------------------------------------ |
+| Lakehouse raw     | Stores uploaded raw CSV files and raw loaded tables          |
+| Warehouse staging | Source-aligned tables materialised from Lakehouse raw tables |
+| Silver            | Cleaned and standardised analytical tables                   |
+| Gold              | Business-ready reporting models and KPIs                     |
 
 More details:
 
