@@ -121,6 +121,14 @@ More details:
 
 - `docs/gold_layer_summary.md`
 
+## Power BI Report Plan
+
+The Power BI report will use Fabric Warehouse Gold tables and views to analyse fulfilment reliability, freight pressure, seller performance, regional bottlenecks, customer satisfaction, and product category risks.
+
+More details:
+
+- `docs/powerbi_report_design.md`
+
 ## Tech Stack
 
 - Python
