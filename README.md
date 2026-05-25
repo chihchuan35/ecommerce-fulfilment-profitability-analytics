@@ -107,7 +107,7 @@ Summary:
 config/      Configuration files
 data/        Local raw data and metadata, excluded from GitHub
 src/         Python extract and utility scripts
-sql/         Staging, Silver, Gold, and data quality SQL scripts
+sql/         Data quality, Silver, and Gold SQL scripts
 docs/        Project documentation
 powerbi/     Power BI screenshots and report documentation
 ```
