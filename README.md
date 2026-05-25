@@ -88,6 +88,16 @@ More details:
 
 Raw data quality checks are stored in:
 
+## Silver Layer
+
+The first version of the Silver layer has been completed in Fabric Warehouse SQL.
+
+Silver tables standardise data types, clean key fields, add row-level exception flags, and prepare the dataset for Gold modelling and Power BI reporting.
+
+More details:
+
+- `docs/silver_layer_summary.md`
+
 - `sql/data_quality/`
 
 Summary:
