@@ -39,7 +39,7 @@ Completed:
 
 Current stage:
 
-- Planning SQL-based raw-to-Silver transformation in Microsoft Fabric Warehouse
+- Preparing Fabric-based raw-to-Silver transformation using Lakehouse tables, SQL analytics endpoint checks, and notebook-based table preparation
 
 ## Data Source
 
@@ -67,7 +67,7 @@ More details:
 
 ## Transform Plan
 
-The transformation layer will use Microsoft Fabric Warehouse SQL.
+The transformation layer uses Microsoft Fabric Lakehouse tables as the raw starting point. SQL analytics endpoint queries are used for validation and inspection, while materialised Silver tables will be created through Fabric Notebook logic where table writes are required.
 
 | Layer   | Purpose                                         |
 | ------- | ----------------------------------------------- |

@@ -73,3 +73,11 @@ Uploaded files:
 The geolocation file is excluded from the first version because city and state fields are sufficient for the initial regional fulfilment analysis.
 
 At this stage, the files are uploaded only. They have not yet been loaded into tables.
+
+## Current Fabric Loading Decision
+
+For the current version, raw CSV files are uploaded into Fabric Lakehouse Files and loaded into Lakehouse tables.
+
+These Fabric-loaded source tables are used as the raw starting point for SQL analytics endpoint data quality checks.
+
+A separate Warehouse staging layer is not used in the first version. If needed later, it can be added after the Lakehouse-based workflow is complete.

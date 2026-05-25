@@ -29,16 +29,10 @@ The Silver layer prepares standardised tables from the raw Olist dataset. It foc
 4. Creating basic operational flags.
 5. Preparing seller, customer, product, order, payment, and review data for Gold modelling.
 
-## Design Principles
+## Fabric Implementation Approach
 
-The transform layer follows these principles:
+The project uses Microsoft Fabric Lakehouse as the raw analytical storage layer.
 
-1. Keep raw data unchanged.
-2. Keep transformation logic simple and transparent.
-3. Use reusable cleaned tables instead of dashboard-specific logic only.
-4. Connect technical transformation rules to business analysis needs.
-5. Avoid unnecessary complexity for an entry-level Data Analyst / Business Analyst portfolio.
+Raw CSV files are uploaded into Lakehouse Files and loaded into Lakehouse tables. The SQL analytics endpoint is used for data inspection and raw data quality checks.
 
-## Out of Scope
-
-The first version does not include machine learning, external enrichment, complex geospatial modelling, or enterprise-level orchestration.
+Because the Lakehouse SQL analytics endpoint is read-only for table data modification, materialised Silver tables will be created through Fabric Notebook logic when write operations are required.
