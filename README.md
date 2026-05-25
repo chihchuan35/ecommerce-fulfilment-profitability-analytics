@@ -141,6 +141,10 @@ More details:
 
 - `docs/powerbi_semantic_model.md`
 
+Report page design:
+
+- `docs/powerbi_report_pages.md`
+
 ## Tech Stack
 
 - Python
