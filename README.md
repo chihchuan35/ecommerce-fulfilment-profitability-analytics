@@ -83,6 +83,16 @@ More details:
 - `docs/silver_business_rule_mapping.md`
 - `sql/README.md`
 
+## Data Quality Checks
+
+Raw data quality checks are stored in:
+
+- `sql/data_quality/`
+
+Summary:
+
+- `docs/data_quality_summary.md`
+
 ## Tech Stack
 
 - Python
