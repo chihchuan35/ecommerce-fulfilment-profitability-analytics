@@ -1,0 +1,65 @@
+-- Core Power BI measures for E-commerce Fulfilment & Profitability Analytics
+-- These measures are intended to be created in the Power BI semantic model.
+
+Total Orders =
+COUNTROWS ( gold_order_fulfilment )
+
+Delivered Orders =
+SUM ( gold_order_fulfilment[is_delivered] )
+
+Late Deliveries =
+SUM ( gold_order_fulfilment[is_late_delivery] )
+
+Late Delivery Rate =
+DIVIDE ( [Late Deliveries], [Delivered Orders] )
+
+Average Late Delay Days =
+AVERAGEX (
+    FILTER (
+        gold_order_fulfilment,
+        gold_order_fulfilment[is_late_delivery] = 1
+    ),
+    gold_order_fulfilment[late_delivery_delay_days]
+)
+
+Average Review Score =
+AVERAGE ( gold_order_fulfilment[average_review_score] )
+
+Low Satisfaction Orders =
+SUM ( gold_order_fulfilment[has_low_customer_satisfaction] )
+
+Low Satisfaction Rate =
+DIVIDE ( [Low Satisfaction Orders], [Total Orders] )
+
+Late and Low Review Orders =
+SUM ( gold_order_fulfilment[late_and_low_review_flag] )
+
+Total Item Revenue =
+SUM ( gold_order_fulfilment[total_item_revenue] )
+
+Total Freight Value =
+SUM ( gold_order_fulfilment[total_freight_value] )
+
+Freight to Revenue Ratio =
+DIVIDE ( [Total Freight Value], [Total Item Revenue] )
+
+Invalid Delivery Sequence Count =
+SUM ( gold_order_fulfilment[has_invalid_delivery_sequence] )
+
+Total Order Items =
+COUNTROWS ( gold_order_item_profitability )
+
+High Freight Pressure Items =
+SUM ( gold_order_item_profitability[is_high_freight_pressure] )
+
+Medium Freight Pressure Items =
+SUM ( gold_order_item_profitability[is_medium_freight_pressure] )
+
+Low Freight Pressure Items =
+SUM ( gold_order_item_profitability[is_low_freight_pressure] )
+
+High Freight Pressure Rate =
+DIVIDE ( [High Freight Pressure Items], [Total Order Items] )
+
+High Freight and Late Delivery Items =
+SUM ( gold_order_item_profitability[high_freight_and_late_delivery_flag] )

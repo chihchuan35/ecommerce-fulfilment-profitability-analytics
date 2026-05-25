@@ -129,6 +129,18 @@ More details:
 
 - `docs/powerbi_report_design.md`
 
+## Power BI Semantic Model
+
+The Power BI report will use Fabric Warehouse Gold tables and views as the reporting layer.
+
+Core DAX measures are stored in:
+
+- `powerbi/core_measures.dax`
+
+More details:
+
+- `docs/powerbi_semantic_model.md`
+
 ## Tech Stack
 
 - Python
