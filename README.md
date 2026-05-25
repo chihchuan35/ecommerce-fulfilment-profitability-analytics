@@ -104,6 +104,23 @@ Summary:
 
 - `docs/data_quality_summary.md`
 
+## Gold Layer
+
+The first version of the Gold layer has been completed.
+
+It includes two physical reporting tables and several analytical views for Power BI:
+
+- `gold_order_fulfilment`
+- `gold_order_item_profitability`
+- `vw_seller_performance`
+- `vw_category_performance`
+- `vw_regional_fulfilment`
+- `vw_customer_satisfaction_summary`
+
+More details:
+
+- `docs/gold_layer_summary.md`
+
 ## Tech Stack
 
 - Python
