@@ -66,3 +66,26 @@ The Power BI model should avoid unnecessary complexity.
 The first report version does not require a full star schema with separate dimension tables. The Gold layer already provides reporting-ready tables and views for the required business questions.
 
 Additional dimension tables may be added later only if they improve report usability or reduce model ambiguity.
+
+## Current Semantic Model Status
+
+A Fabric semantic model has been created from the Fabric Warehouse Gold layer.
+
+Included reporting objects:
+
+- `gold_order_fulfilment`
+- `gold_order_item_profitability`
+- `vw_seller_performance`
+- `vw_category_performance`
+- `vw_regional_fulfilment`
+- `vw_customer_satisfaction_summary`
+
+DAX measures are organised in a dedicated measure table named `Measure`.
+
+The primary relationship is:
+
+| From                              | To                                        | Cardinality | Direction |
+| --------------------------------- | ----------------------------------------- | ----------- | --------- |
+| `gold_order_fulfilment[order_id]` | `gold_order_item_profitability[order_id]` | One-to-many | Single    |
+
+Staging and Silver tables are excluded from the semantic model to keep the report focused on business-ready Gold outputs.
